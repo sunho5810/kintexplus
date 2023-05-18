@@ -45,27 +45,31 @@ import EgovGalleryDetail from 'pages/inform/gallery/EgovGalleryDetail';
 import EgovGalleryEdit from 'pages/inform/gallery/EgovGalleryEdit';
 
 //ADMIN
-import EgovAdminScheduleList from 'pages/admin/schedule/EgovAdminScheduleList';
-import EgovAdminScheduleDetail from 'pages/admin/schedule/EgovAdminScheduleDetail';
-import EgovAdminScheduleEdit from 'pages/admin/schedule/EgovAdminScheduleEdit';
+import AdminHeader from 'components/AdminHeader';
+import AdminEmployeeList from 'pages/admin/employee/AdminEmployeeList';
 
-import EgovAdminBoardList from 'pages/admin/board/EgovAdminBoardList';
-import EgovAdminBoardEdit from 'pages/admin/board/EgovAdminBoardEdit';
+// import EgovAdminScheduleList from 'pages/admin/schedule/EgovAdminScheduleList';
+// import EgovAdminScheduleDetail from 'pages/admin/schedule/EgovAdminScheduleDetail';
+// import EgovAdminScheduleEdit from 'pages/admin/schedule/EgovAdminScheduleEdit';
 
-import EgovAdminUsageList from 'pages/admin/usage/EgovAdminUsageList';
-import EgovAdminUsageEdit from 'pages/admin/usage/EgovAdminUsageEdit';
+// import EgovAdminBoardList from 'pages/admin/board/EgovAdminBoardList';
+// import EgovAdminBoardEdit from 'pages/admin/board/EgovAdminBoardEdit';
 
-import EgovAdminNoticeList from 'pages/admin/notice/EgovAdminNoticeList';
-import EgovAdminNoticeDetail from 'pages/admin/notice/EgovAdminNoticeDetail';
-import EgovAdminNoticeEdit from 'pages/admin/notice/EgovAdminNoticeEdit';
+// import EgovAdminUsageList from 'pages/admin/usage/EgovAdminUsageList';
+// import EgovAdminUsageEdit from 'pages/admin/usage/EgovAdminUsageEdit';
 
-import EgovAdminGalleryList from 'pages/admin/gallery/EgovAdminGalleryList';
-import EgovAdminGalleryDetail from 'pages/admin/gallery/EgovAdminGalleryDetail';
-import EgovAdminGalleryEdit from 'pages/admin/gallery/EgovAdminGalleryEdit';
+// import EgovAdminNoticeList from 'pages/admin/notice/EgovAdminNoticeList';
+// import EgovAdminNoticeDetail from 'pages/admin/notice/EgovAdminNoticeDetail';
+// import EgovAdminNoticeEdit from 'pages/admin/notice/EgovAdminNoticeEdit';
+
+// import EgovAdminGalleryList from 'pages/admin/gallery/EgovAdminGalleryList';
+// import EgovAdminGalleryDetail from 'pages/admin/gallery/EgovAdminGalleryDetail';
+// import EgovAdminGalleryEdit from 'pages/admin/gallery/EgovAdminGalleryEdit';
 //사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 추가
 import EgovAdminPasswordUpdate from 'pages/admin/manager/EgovAdminPasswordUpdate';
 import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 추가
 import initPage from 'js/ui';
+
 
 
 const RootRoutes = () => {
@@ -152,10 +156,9 @@ const SecondRoutes = () => {
 
   return (
     <>
-      <a
-      {/* {
-        isAdmin ? (<p>admin!!</p>) : (<EgovHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />)
-      } */}
+      {
+        isAdmin ? (<AdminHeader/>) : (<EgovHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />)
+      }
       
       <Routes>
         {/* MAIN */}
@@ -214,11 +217,17 @@ const SecondRoutes = () => {
         <Route path={URL.INFORM_GALLERY_REPLY} element={<EgovGalleryEdit mode={CODE.MODE_REPLY} />} />
 
         {/* ADMIN */}
-        <Route path={URL.ADMIN} element={<Navigate to={URL.ADMIN_SCHEDULE} />} />
-        <Route path={URL.ADMIN_SCHEDULE} element={<EgovAdminScheduleList />} />
+        <Route path={URL.ADMIN} element={<Navigate to={URL.ADMIN_EMPLOYEE} />} />
+        
+        <Route path={URL.ADMIN_EMPLOYEE} element={<AdminEmployeeList/>}/>
+        
+
+        {/* <Route path={URL.ADMIN_SCHEDULE} element={<EgovAdminScheduleList />} />
         <Route path={URL.ADMIN_SCHEDULE_DETAIL} element={<EgovAdminScheduleDetail />} />
         <Route path={URL.ADMIN_SCHEDULE_CREATE} element={<EgovAdminScheduleEdit mode={CODE.MODE_CREATE} />} />
-        <Route path={URL.ADMIN_SCHEDULE_MODIFY} element={<EgovAdminScheduleEdit mode={CODE.MODE_MODIFY} />} />
+        <Route path={URL.ADMIN_SCHEDULE_MODIFY} element={<EgovAdminScheduleEdit mode={CODE.MODE_MODIFY} />} /> */}
+
+        {/* 
 
         <Route path={URL.ADMIN_BOARD} element={<EgovAdminBoardList />} />
         <Route path={URL.ADMIN_BOARD_CREATE} element={<EgovAdminBoardEdit mode={CODE.MODE_CREATE} />} />
@@ -238,13 +247,19 @@ const SecondRoutes = () => {
         <Route path={URL.ADMIN_GALLERY_DETAIL} element={<EgovAdminGalleryDetail />} />
         <Route path={URL.ADMIN_GALLERY_CREATE} element={<EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
         <Route path={URL.ADMIN_GALLERY_MODIFY} element={<EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
-        <Route path={URL.ADMIN_GALLERY_REPLY} element={<EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} />
+        <Route path={URL.ADMIN_GALLERY_REPLY} element={<EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} /> */}
 		{/* 사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 */}
 		<Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
       </Routes>
-      <EgovFooter />
-      <EgovInfoPopup />
-      
+
+      {
+        isAdmin ? ("") : (
+          <div>
+            <EgovFooter />
+            <EgovInfoPopup />
+          </div>
+        )
+      }
     </>
   )
   
