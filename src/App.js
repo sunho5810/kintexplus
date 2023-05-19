@@ -1,12 +1,12 @@
 import RootRoutes from './routes';
 import React from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/base.css';
 import './css/layout.css';
 import './css/component.css';
 import './css/page.css';
 import './css/response.css';
-import './css/custom.scss';
 
 function App() {
 
