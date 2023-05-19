@@ -48,7 +48,7 @@ import EgovGalleryEdit from 'pages/inform/gallery/EgovGalleryEdit';
 import AdminHeader from 'components/AdminHeader';
 import AdminEmployeeList from 'pages/admin/employee/AdminEmployeeList';
 
-// import EgovAdminScheduleList from 'pages/admin/schedule/EgovAdminScheduleList';
+import EgovAdminScheduleList from 'pages/admin/schedule/EgovAdminScheduleList';
 // import EgovAdminScheduleDetail from 'pages/admin/schedule/EgovAdminScheduleDetail';
 // import EgovAdminScheduleEdit from 'pages/admin/schedule/EgovAdminScheduleEdit';
 
@@ -115,19 +115,20 @@ const RootRoutes = () => {
 		const regex = /^(\/admin\/)+(.)*$/; //정규표현식 사용: /admin/~ 으로 시작하는 경로 모두 포함
 		if(regex.test(location.pathname)) {
       setMounted(false); // 이 값으로 true 일 때만 페이지를 렌더링이 되는 변수 사용. 기본은 숨기기
-			jwtAuthentication(); // 이 함수에서 관리자단 인증여부 확인 후 렌더링 처리
+			
+      //관리자 작업중에 계속 fetch 에러 떠서 주석처리함
+      // jwtAuthentication(); // 이 함수에서 관리자단 인증여부 확인 후 렌더링 처리
 		}
 	}
   },[jwtAuthentication, location, mounted]); // location 경로와 페이지 마운트상태가 변경 될 때 업데이트 후 리렌더링
 
   if(mounted) { // 인증 없이 시스템관리 URL로 접근할 때 렌더링 되는 것을 방지하는 조건추가. 
 	  return (
-
       <Routes>
-          {console.log("check2222")}
-	        <Route path={URL.ERROR} element={<EgovError />} />
-	        <Route path="*" element={<SecondRoutes/>}/>
-	      </Routes>
+        {console.log("mounted??", mounted)}
+        <Route path={URL.ERROR} element={<EgovError />} />
+        <Route path="*" element={<SecondRoutes/>}/>
+      </Routes>
 	  )
   }
 
@@ -156,6 +157,7 @@ const SecondRoutes = () => {
 
   return (
     <>
+      {console.log("isAdmin??", isAdmin)}
       {
         isAdmin ? (<AdminHeader/>) : (<EgovHeader loginUser={loginVO} onChangeLogin={(user) => setLoginVO(user)} />)
       }
@@ -218,9 +220,9 @@ const SecondRoutes = () => {
 
         {/* ADMIN */}
         <Route path={URL.ADMIN} element={<Navigate to={URL.ADMIN_EMPLOYEE} />} />
-        
+
         <Route path={URL.ADMIN_EMPLOYEE} element={<AdminEmployeeList/>}/>
-        
+        <Route path={URL.ADMIN_SCHEDULE} element={<EgovAdminScheduleList />} />
 
         {/* <Route path={URL.ADMIN_SCHEDULE} element={<EgovAdminScheduleList />} />
         <Route path={URL.ADMIN_SCHEDULE_DETAIL} element={<EgovAdminScheduleDetail />} />
@@ -248,9 +250,9 @@ const SecondRoutes = () => {
         <Route path={URL.ADMIN_GALLERY_CREATE} element={<EgovAdminGalleryEdit mode={CODE.MODE_CREATE} />} />
         <Route path={URL.ADMIN_GALLERY_MODIFY} element={<EgovAdminGalleryEdit mode={CODE.MODE_MODIFY} />} />
         <Route path={URL.ADMIN_GALLERY_REPLY} element={<EgovAdminGalleryEdit mode={CODE.MODE_REPLY} />} /> */}
-		{/* 사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 */}
-		<Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
-      </Routes>
+		  {/* 사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 */}
+		  <Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
+    </Routes>
 
       {
         isAdmin ? ("") : (

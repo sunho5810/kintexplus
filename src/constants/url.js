@@ -46,9 +46,9 @@ const URL = {
     
     //ADMIN
     ADMIN                       : "/admin", // 사이트관리
-    ADMIN_EMPLOYEE              : "/admin/employee" //임직원 관리
+    ADMIN_EMPLOYEE              : "/admin/employee", //임직원 관리
 
-    // ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
+    ADMIN_SCHEDULE              : "/admin/schedule", // 사이트관리/일정관리
     // ADMIN_SCHEDULE_DETAIL       : "/admin/schedule/detail", // 사이트관리/일정관리상세
     // ADMIN_SCHEDULE_CREATE       : "/admin/schedule/create", // 사이트관리/일정관리생성
     // ADMIN_SCHEDULE_MODIFY       : "/admin/schedule/modify", // 사이트관리/일정관리수정
